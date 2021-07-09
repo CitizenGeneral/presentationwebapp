@@ -1,0 +1,257 @@
+:root {
+  --white: #fff;
+  --button-color: #00b5ff;
+  --background: #b1e8ff;
+  --blue: rgba(3, 32, 115, 0.8);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	color: var(--white);
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	background: var(--button-color);
+    border-radius: 5px;
+	width: 25px;
+	height: 25px;
+	font-size: 9px;
+	text-align: center;
+	overflow: hidden;
+	border: none;
+	margin: 2px;
+	cursor: pointer;
+}
+
+.verse-text {
+	display: none;
+}
+
+#verses-slots {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.cpanel {
+	background: var(--background);
+	width: 100vw;
+	height: 100vh;
+}
+
+#bible-content {
+	background: var(--background);
+	padding: .8rem;
+}
+
+.script {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.chapter-number {
+	width: 78px;
+	height: 25px;
+	margin: 5px 5px 5px 0px;
+}
+
+input {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: var(--blue);
+	border: none;
+	border-radius: 5px;
+}
+
+.bible-book, .bible-version {
+	height: 25px;
+	margin: 5px 5px 5px 0px;
+}
+
+.version {
+	font-size: 10px;
+	font-style: italic;
+	text-align: right;
+	padding-top: 7px;
+}
+
+.info {
+	position: absolute;
+	border: 2px solid rgb(3, 32, 115);
+	width: fit-content;
+	background: #00b5ff;
+	padding: 5px 25px 5px 25px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left: 32px;
+	text-align: center;
+	border-radius: 10px;
+	top: -13px;
+	
+}
+
+select {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: var(--blue);
+	border: none;
+	border-radius: 5px;
+}
+
+.bible-search {
+	width: 70px;
+	height: 25px;
+	margin: 5px 5px 5px 0px;
+}
+
+.bible-search button {
+	width: 100%;
+	height: 100%;
+}
+
+.display-source {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: transparent;
+}
+
+.scripture-content {
+	position: absolute;
+	bottom: 20px;
+	width: calc(96% - 4%);
+	padding: 16px 20px 10px 10px;
+	background: rgba(3, 32, 115, 0.8);
+	font-size: 16pt;
+	line-height: 1;
+	left: 4%;
+	text-align: center;
+	hyphens: auto;
+	transition: all 3s ease-out;
+	border-radius: 20px;
+	border: 4px solid #00b5ff;
+	opacity: .8;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.image {
+	position: absolute;
+	height: 92px;
+	width: 92px;
+	left: 93%;
+	bottom: -20px; 
+	opacity: .65;
+}
+
+@media screen and (max-width: 425px) {
+	.image {
+		height: 52px;
+		width: 52px;
+		left: 87%;
+		bottom: -20px; 
+	}
+}
+
+@media screen and (min-width: 425px) {
+	.image {
+		height: 52px;
+		width: 52px;
+		left: 87%;
+		bottom: -20px; 
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.image {
+		height: 72px;
+		width: 72px;
+		left: 94%;
+		bottom: -27px; 
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.image {
+		height: 72px;
+		width: 72px;
+		left: 94%;
+		bottom: -30px; 
+	}
+}
+
+@media screen and (min-width: 1440px) {
+	.image {
+		height: 72px;
+		width: 72px;
+		left: 95.5%;
+		bottom: -32px; 
+	}
+}
+
+@media screen and (min-width: 2560px) {
+	.image {
+		height: 72px;
+		width: 72px;
+		left: 98%;
+		bottom: -32px; 
+	}
+}
+
+.hide {
+	visibility: hidden;
+    opacity: 0;
+    transition: visibility 2s linear 2s, opacity 2s linear; 
+}
+
+.show {
+	display: block;
+	animation: tracking-in-expand-fwd 2s ease-in-out; 
+}
+
+@-webkit-keyframes tracking-in-expand-fwd {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-transform: translateZ(-700px);
+            transform: translateZ(-700px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+@keyframes tracking-in-expand-fwd {
+  0% {
+    letter-spacing: -0.5em;
+    -webkit-transform: translateZ(-700px);
+            transform: translateZ(-700px);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+
