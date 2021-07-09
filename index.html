@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body class="cpanel">
+	<div id="bible-content">
+		<div class="script">									
+			<div class="bible-version">
+				<select id="bible-version-select">
+					<option value="KJV">KJV</option>
+					<option value="RSV">RSV</option>
+					<option value="ASV">ASV</option>
+					<option value="TYNDALE">TYNDALE</option>
+					<option value="JUBL2000">JUBILEE 2000</option>
+					<option value="DARBY">DARBY</option>
+					<option value="WYCLIFFE">WYCLIFFE</option>
+				</select>
+			</div>									
+			<div class="bible-book">
+				<select id="bible-book-select">
+					<option value="0">Genesis</option>
+					<option value="1">Exodus</option>
+					<option value="2">Leviticus</option>
+					<option value="3">Numbers</option>
+					<option value="4">Deuteronomy</option>
+					<option value="5">Joshua</option>
+					<option value="6">Judges</option>
+					<option value="7">Ruth</option>
+					<option value="8">1 Samuel</option>
+					<option value="9">2 Samuel</option>
+					<option value="10">1 Kings</option>
+					<option value="11">2 Kings</option>
+					<option value="12">1 Chronicles</option>
+					<option value="13">2 Chronicles</option>
+					<option value="14">Ezra</option>
+					<option value="15">Nehemiah</option>
+					<option value="16">Esther</option>
+					<option value="17">Job</option>
+					<option value="18">Psalm</option>
+					<option value="19">Proverbs</option>
+					<option value="20">Ecclesiastes</option>
+					<option value="21">Song of Solomon</option>
+					<option value="22">Isaiah</option>
+					<option value="23">Jeremiah</option>
+					<option value="24">Lamentations</option>
+					<option value="25">Ezekiel</option>
+					<option value="26">Daniel</option>
+					<option value="27">Hosea</option>
+					<option value="28">Joel</option>
+					<option value="29">Amos</option>
+					<option value="30">Obadiah</option>
+					<option value="31">Jonah</option>
+					<option value="32">Micah</option>
+					<option value="33">Nahum</option>
+					<option value="34">Habakkuk</option>
+					<option value="35">Zephaniah</option>
+					<option value="36">Haggai</option>
+					<option value="36">Zechariah</option>
+					<option value="38">Malachi</option>
+					<option value="39">Matthew</option>
+					<option value="40">Mark</option>
+					<option value="41">Luke</option>
+					<option value="42">John</option>
+					<option value="43">Acts</option>
+					<option value="44">Romans</option>
+					<option value="45">1 Corinthians</option>
+					<option value="46">2 Corinthians</option>
+					<option value="47">Galatians</option>
+					<option value="48">Ephesians</option>
+					<option value="49">Philippians</option>
+					<option value="50">Colossians</option>
+					<option value="51">1 Thessalonians</option>
+					<option value="52">2 Thessalonians</option>
+					<option value="53">1 Timothy</option>
+					<option value="54">2 Timothy</option>
+					<option value="55">Titus</option>
+					<option value="56">Philemon</option>
+					<option value="57">Hebrews</option>
+					<option value="58">James</option>
+					<option value="59">1 Peter</option>
+					<option value="60">2 Peter</option>
+					<option value="61">1 John</option>
+					<option value="62">2 John</option>
+					<option value="63">3 John</option>
+					<option value="64">Jude</option>
+					<option value="65">Revelation</option>
+				</select>
+			</div>
+			<div class="chapter-number">
+				<input id="bible-chapter" name="chapter" min="1" type="number" placeholder="Chapter">
+			</div>
+			<div class="bible-search">
+				<button onclick="searchBible()">Search</button>
+			</div>
+			<div class="bible-search">
+				<button onclick="closeBible()">Close</button>
+			</div>
+		</div>
+		<div class="verses">
+			<ul id="verses-slots"></ul>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		
+		function searchBible() {
+			const version = document.getElementById('bible-version-select').value;
+			let url = 'bibles/' + version + '.xml';
+            fetch(url)
+            .then(response=>response.text())
+            .then(data=>{
+                let parser = new DOMParser();
+                let xml = parser.parseFromString(data, "application/xml");
+				buildText(xml);
+			});
+		}
+        
+        function buildText(x){
+			const book = document.getElementById('bible-book-select').value;
+			const chapter = document.getElementById('bible-chapter').value - 1;
+            let list = document.getElementById('verses-slots');
+			let books = x.getElementsByTagName('BIBLEBOOK')[book];
+			let chapters = books.getElementsByTagName('CHAPTER')[chapter];
+			let verses = chapters.getElementsByTagName('VERS');
+			list.innerHTML = "";
+            for(let i=0; i<verses.length; i++){
+                let li = document.createElement('li');
+                let versetext = verses[i].firstChild.nodeValue;
+                let verseNumber = verses[i].getAttribute('vnumber');
+				li.id = `bible-slot-${verseNumber}`;
+                li.textContent = `${verseNumber} - ${versetext}`;
+				li.innerHTML = '<button onclick="send()"><div class="verse-number" id="verseNumber">' + verseNumber + '</div></button><div class="verse-text" id="verseText">' + versetext + '</div>';
+                list.appendChild(li);
+            }
+        }
+		
+
+		
+		function send() {
+			const setActive = as => {
+			[...as.parentElement.children].forEach(sib => sib.classList.remove('active-verse'))
+			as.classList.add('active-verse')
+			const bc = new BroadcastChannel('bible_channel');
+			
+			const verse_Text = document.querySelector('.active-verse > #verseText').innerHTML;
+			const verse_Number = document.querySelector('.active-verse > button > #verseNumber').innerHTML;
+			const inputChapter = document.getElementById('bible-chapter').value;
+			const inputbook = document.getElementById('bible-book-select').getElementsByTagName("option")[document.getElementById('bible-book-select').selectedIndex].innerHTML;
+			const version = document.getElementById('bible-version-select').value;
+
+			bc.postMessage({
+				bibleversion: version,
+				biblebook: inputbook,
+				biblechapter: inputChapter,
+				bibleverse: verse_Number,
+				bibletext: verse_Text,
+				Switch: "show",
+			});
+			
+			}
+			let verselists = [...document.body.querySelectorAll('#verses-slots > li')]
+			verselists.forEach(as => as.addEventListener('click', e => setActive(as))) 
+		}
+		
+		function closeBible() {
+			const bc = new BroadcastChannel('bible_channel');
+
+			bc.postMessage({
+				Switch: "hide",
+			});
+		}
+
+	</script>
+</body>
+</html>

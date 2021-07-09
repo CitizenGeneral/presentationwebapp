@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+
+ </head>
+  <body class="display-source">
+	<div id="display" class="scripture-content hide">
+		<div class="info">
+			<div id="scripture-info">
+				<span id="bookname"></span>
+				<span id="bookchapter"></span>
+				<span id="verse"></span>
+				<span id="scripture-version"></span>
+			</div>
+		</div>
+		<div class="main-text">
+			<div id="scripture-text">
+				<span id="text"></span>
+			</div>
+		</div>
+		<div class="image">
+			<img src="css/bible.png">
+		</div>
+	</div>
+
+	 <script type="text/javascript">
+		const bc = new BroadcastChannel('bible_channel');
+			
+		bc.onmessage = function (e) {
+			if (e.data.Switch === "show") {
+				document.getElementById('scripture-version').innerHTML = '(' + e.data.bibleversion + ')';
+				document.getElementById('bookname').innerHTML = e.data.biblebook;
+				document.getElementById('bookchapter').innerHTML = e.data.biblechapter;
+				document.getElementById('verse').innerHTML = ': ' + e.data.bibleverse;
+				document.getElementById('text').innerHTML = e.data.bibletext;
+				const show = e.data.Switch;
+				document.getElementById('display').classList.add(show);
+				document.getElementById('display').classList.remove('hide');
+			} 
+			if (e.data.Switch === "hide") {
+				document.getElementById('display').classList.remove('show');
+				document.getElementById('display').classList.add('hide');
+			}
+		};
+	</script>
+
+  </body>
+</html>
