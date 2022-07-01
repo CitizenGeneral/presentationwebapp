@@ -130,7 +130,7 @@ select {
 	width: calc(96% - 4%);
 	padding: 16px 20px 10px 10px;
 	background: rgba(3, 32, 115, 0.8);
-	font-size: 16pt;
+	font-size: 20pt;
 	line-height: 1;
 	left: 4%;
 	text-align: center;
