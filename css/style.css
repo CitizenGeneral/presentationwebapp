@@ -33,6 +33,15 @@ button {
 	display: none;
 }
 
+li:hover .verse-text {
+	display: block;
+	position: absolute;
+	background: var(--blue);
+	padding: 5px;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
 #verses-slots {
 	display: flex;
 	flex-wrap: wrap;
@@ -93,7 +102,6 @@ input {
 	text-align: center;
 	border-radius: 10px;
 	top: -22px;
-	
 }
 
 select {
@@ -103,6 +111,10 @@ select {
 	background: var(--blue);
 	border: none;
 	border-radius: 5px;
+}
+
+#scripture-info {
+	font-size: 24px;
 }
 
 .bible-search {
@@ -138,7 +150,6 @@ select {
 	transition: all 3s ease-out;
 	border-radius: 20px;
 	border: 4px solid #00b5ff;
-	opacity: 1;
 }
 
 img {
@@ -212,7 +223,9 @@ img {
 .hide {
 	visibility: hidden;
     opacity: 0;
-    transition: visibility 2s linear 2s, opacity 2s linear; 
+    /*transition: visibility 2s linear 2s, opacity 2s linear; */
+	/*animation: tracking-out-contract 3s ease-in-out;*/
+	animation: tracking-out-contract-bck-bottom 3s ease-in-out;
 }
 
 .show {
@@ -253,5 +266,65 @@ img {
     opacity: 1;
   }
 }
+
+@-webkit-keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
+@keyframes tracking-out-contract {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes tracking-out-contract-bck-bottom {
+  0% {
+    -webkit-transform: translateZ(0) translateY(0);
+            transform: translateZ(0) translateY(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    -webkit-transform: translateZ(-500px) translateY(300px);
+            transform: translateZ(-500px) translateY(300px);
+    opacity: 0;
+  }
+}
+@keyframes tracking-out-contract-bck-bottom {
+  0% {
+    -webkit-transform: translateZ(0) translateY(0);
+            transform: translateZ(0) translateY(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    letter-spacing: -0.5em;
+    -webkit-transform: translateZ(-500px) translateY(300px);
+            transform: translateZ(-500px) translateY(300px);
+    opacity: 0;
+  }
+}
+
+
 
 
