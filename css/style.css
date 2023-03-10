@@ -97,7 +97,7 @@ input {
 	width: fit-content;
 	background: #00b5ff;
 	padding: 5px 25px 5px 25px;
-	font-size: 26px;
+	font-size: 28px;
 	font-weight: bold;
 	margin-left: 32px;
 	text-align: center;
@@ -115,7 +115,7 @@ select {
 }
 
 #scripture-info {
-	font-size: 26px;
+	font-size: 28px;
 }
 
 .bible-search {
@@ -143,7 +143,7 @@ select {
 	width: calc(96% - 4%);
 	padding: 20px 20px 10px 10px;
 	background: rgba(3, 32, 115, 0.8);
-	font-size: 24pt;
+	font-size: 28pt;
 	line-height: 1;
 	left: 4%;
 	text-align: center;
